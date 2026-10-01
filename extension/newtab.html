@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>Dingin · Yeni Sekme</title>
+    <link rel="icon" href="assets/icon-48.png">
+    <link rel="stylesheet" href="newtab.css">
+    <script type="module" src="newtab.js"></script>
+  </head>
+  <body data-background="landscape">
+    <div class="scenery" aria-hidden="true"></div>
+    <div class="shade" aria-hidden="true"></div>
+
+    <div class="page">
+      <header class="topbar">
+        <div class="brand" aria-label="Dingin">
+          <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M5 21h22M9 17a7 7 0 0 1 14 0M16 3v3M5 7l3 3M27 7l-3 3M9 26h14" />
+          </svg>
+          <span>dingin</span>
+        </div>
+        <p class="top-note">Yeni bir sekme. Küçük bir nefes.</p>
+      </header>
+
+      <main>
+        <div class="moment">
+          <p class="date" id="date"></p>
+          <div class="clock-wrap">
+            <time class="clock" id="clock" aria-label="Saat">--:--</time>
+            <span class="clock-period" id="clock-period" hidden></span>
+          </div>
+          <h1 class="greeting" id="greeting">Merhaba.</h1>
+          <p class="invitation">Biraz yavaşla. Bu an senin.</p>
+
+          <section class="focus" aria-label="Günlük odak">
+            <form id="focus-form">
+              <p class="eyebrow">GÜNE KÜÇÜK BİR NİYET</p>
+              <label class="focus-question" for="focus-input">Bugün senin için önemli olan ne?</label>
+              <div class="focus-input-wrap">
+                <input id="focus-input" type="text" maxlength="160" placeholder="Tek bir şey seç…" autocomplete="off" aria-describedby="focus-hint">
+                <button class="icon-button focus-submit" type="submit" aria-label="Odağı kaydet" title="Odağı kaydet">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5v8a3 3 0 0 1-3 3H5m5-5-5 5 5 5" /></svg>
+                </button>
+              </div>
+              <div class="focus-form-footer">
+                <span class="focus-hint" id="focus-hint">Yaz ve Enter’a bas</span>
+                <button class="text-button" id="focus-cancel" type="button" hidden>Vazgeç</button>
+                <button class="text-button" id="focus-remove" type="button" hidden>Kaldır</button>
+              </div>
+            </form>
+
+            <div id="focus-result" hidden>
+              <p class="eyebrow">BUGÜNÜN ODAĞI</p>
+              <div class="focus-saved">
+                <input class="focus-checkbox" id="focus-done" type="checkbox" aria-labelledby="focus-text">
+                <label class="focus-text" id="focus-text" for="focus-done"></label>
+                <button class="icon-button focus-edit" id="focus-edit" type="button" aria-label="Odağı düzenle" title="Odağı düzenle">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5 4 4M4 20l4-1L20 7a2.8 2.8 0 0 0-4-4L4 15v5Z" /></svg>
+                </button>
+              </div>
+              <p class="completion" id="completion">Bu kadarı bile güzel. Kendine bir nefes ver.</p>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <div class="photo-caption">
+          <div class="place">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2.5" /></svg>
+            <span id="scene-name">Braies Gölü, İtalya</span>
+          </div>
+          <a id="photo-credit" href="https://unsplash.com/photos/T7K4aEPoGGk" target="_blank" rel="noopener noreferrer">Pietro De Grandi / Unsplash</a>
+          <span class="scene-note" id="scene-note" hidden>Renklerle küçük bir kaçış</span>
+        </div>
+        <p class="daily-thought" id="daily-thought">Her şeyi değil, bugün önemli olanı yap.</p>
+        <button class="settings-trigger" id="settings-open" type="button" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 3-.5 2-2 1.2-2-.5-2 3.6L4 11v2l-1.5 1.7 2 3.6 2-.5 2 1.2.5 2h6l.5-2 2-1.2 2 .5 2-3.6L20 13v-2l1.5-1.7-2-3.6-2 .5-2-1.2L15 3Z" /><circle cx="12" cy="12" r="3" /></svg>
+          <span>Kişiselleştir</span>
+        </button>
+      </footer>
+    </div>
+
+    <dialog class="settings" id="settings-dialog" aria-labelledby="settings-title" aria-describedby="settings-description">
+      <div class="settings-heading">
+        <div>
+          <p class="eyebrow">KÜÇÜK DOKUNUŞLAR</p>
+          <h2 id="settings-title">Kendine göre.</h2>
+        </div>
+        <button class="icon-button" id="settings-close" type="button" aria-label="Ayarları kapat">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+        </button>
+      </div>
+      <p class="settings-description" id="settings-description">Bu küçük alanı biraz daha sen yap.</p>
+      <form id="settings-form">
+        <div class="settings-field">
+          <label for="name-input">Sana nasıl seslenelim?</label>
+          <input class="name-input" id="name-input" type="text" maxlength="32" placeholder="İsmin (isteğe bağlı)" autocomplete="off" autofocus>
+        </div>
+        <fieldset class="settings-field">
+          <legend>Saat biçimi</legend>
+          <div class="segmented">
+            <label><input type="radio" name="clock-format" value="24" checked><span>24 saat</span></label>
+            <label><input type="radio" name="clock-format" value="12"><span>12 saat</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="settings-field">
+          <legend>Manzaranı seç</legend>
+          <div class="background-options">
+            <label class="background-option">
+              <input type="radio" name="background" value="landscape" checked>
+              <span class="background-card"><span class="swatch swatch-landscape"></span><span>Göl kenarı</span></span>
+            </label>
+            <label class="background-option">
+              <input type="radio" name="background" value="dusk">
+              <span class="background-card"><span class="swatch swatch-dusk"></span><span>Alacakaranlık</span></span>
+            </label>
+            <label class="background-option">
+              <input type="radio" name="background" value="night">
+              <span class="background-card"><span class="swatch swatch-night"></span><span>Gece</span></span>
+            </label>
+          </div>
+        </fieldset>
+        <p class="privacy-note">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6l-8-3Zm-4 9 3 3 5-6" /></svg>
+          Yalnızca bu tarayıcıda saklanır.
+        </p>
+        <button class="save-button" type="submit">Kaydet</button>
+      </form>
+    </dialog>
+
+    <p class="storage-notice" id="storage-notice" role="alert" hidden>Tarayıcı kayıt izni vermedi. Değişiklikler yalnızca bu sekmede kalacak.</p>
+    <span class="sr-only" id="status" role="status" aria-live="polite"></span>
+    <noscript><p class="storage-notice">Saatin çalışması için JavaScript açık olmalı.</p></noscript>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Dingin — Yeni Sekme",
+  "version": "1.0.0",
+  "description": "Biraz yavaşla. Manzara, saat ve günlük odağınla sana ait, çevrimdışı bir yeni sekme.",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "icons": {
+    "16": "assets/icon-16.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+  }
+}
