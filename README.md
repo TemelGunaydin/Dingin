@@ -2,6 +2,40 @@
 
 Dingin, Brave’de yeni bir sekme açtığında ortada saat ve arka planda sakin bir manzara gösterir. İstersen ismini ve o gün yapmak istediğin tek bir şeyi de ekleyebilirsin. Momentum’dan ilham alan, Türkçe ve bilgisayarında çalışan bağımsız bir eklentidir.
 
+## Bu projeyi oluşturmak için örnek prompt
+
+Aşağıdaki metin, projenin başlangıç fikrini ve ortaya çıkan özelliklerini bir araya getiren **yeniden yazılmış bir prompttur**; ilk konuşmanın birebir kopyası değildir. Benzer bir eklenti oluşturmak için bir yapay zekâ kodlama asistanına verebilirsin.
+
+```text
+Brave tarayıcısında bilgisayarımdan yükleyip kullanabileceğim, Momentum’dan
+(https://momentumdash.com/) ilham alan bir yeni sekme eklentisi yap.
+Momentum’un marka ve tasarımını birebir kopyalama; adı Dingin olsun.
+
+Sade, sakin ve Türkçe bir arayüz istiyorum:
+- Yeni sekme açıldığında ortada büyük, canlı bir saat ve yerel tarih görünsün.
+- Arka planda güzel bir manzara olsun; fotoğraf eklentinin içinde bulunsun.
+- Günün saatine göre karşılama gösterilsin ve kullanıcı ismini ekleyebilsin.
+- Kullanıcı bugün için tek bir odak yazabilsin; bunu tamamlayabilsin,
+  düzenleyebilsin veya silebilsin. Odak yerel gece yarısında yenilensin.
+- Kişiselleştirme bölümünde isim, 12/24 saat biçimi ve üç arka plan seçilsin.
+- Sayfanın altında her gün değişen kısa, sakin bir hatırlatma olsun.
+
+Hesap, sunucu, API anahtarı, reklam veya takip istemiyorum. İnternet olmadan
+çalışsın; fontlar, görseller ve kod dışarıdan yüklenmesin. İsim, tercihler ve
+günlük odak yalnızca kullanıcının tarayıcısında saklansın. Açık eklenti
+sekmeleri arasındaki değişiklikler eşitlensin. Gereksiz tarayıcı izni isteme.
+
+Manifest V3, HTML, CSS ve JavaScript kullan. Kurulum için derleme veya
+terminal komutu gerektirme; yüklenecek dosyaları extension klasörüne koy.
+Küçük ekranlarda da okunaklı olsun ve klavyeyle kullanılabilsin.
+
+Saatin ve günün değişmesini, kayıtların korunmasını, çevrimdışı çalışmayı
+ve bozuk ya da engellenmiş depolama durumlarını test et. Son olarak,
+eklentinin Brave’e nasıl ekleneceğini hiç bilmeyen birine anlatır gibi
+adım adım açıklayan bir README hazırla.
+```
+
+
 **Daha önce hiç eklenti kurmadıysan da aşağıdaki adımları izleyebilirsin. Kod yazmana veya terminal açmana gerek yok.**
 
 ## Başlamadan önce
@@ -167,39 +201,6 @@ Tekrar kullanmak istersen aynı anahtarı aç. Tamamen kaldırmak için karttaki
 - Veriler yalnızca eklentinin `localStorage` alanına yazılır; sunucuya gönderilmez ve cihazlar arasında senkronize edilmez.
 - İçerik güvenlik politikası ağ bağlantılarını kapatır (`connect-src 'none'`). Yalnızca fotoğrafın kaynak bağlantısına kendin tıklarsan Unsplash yeni sekmede açılır.
 - Tarayıcı depolamayı engellerse saat çalışmaya devam eder; değişikliklerin yalnızca o sekmede kalacağını belirten bir uyarı gösterilir.
-
-## Bu projeyi oluşturmak için örnek prompt
-
-Aşağıdaki metin, projenin başlangıç fikrini ve ortaya çıkan özelliklerini bir araya getiren **yeniden yazılmış bir prompttur**; ilk konuşmanın birebir kopyası değildir. Benzer bir eklenti oluşturmak için bir yapay zekâ kodlama asistanına verebilirsin.
-
-```text
-Brave tarayıcısında bilgisayarımdan yükleyip kullanabileceğim, Momentum’dan
-(https://momentumdash.com/) ilham alan bir yeni sekme eklentisi yap.
-Momentum’un marka ve tasarımını birebir kopyalama; adı Dingin olsun.
-
-Sade, sakin ve Türkçe bir arayüz istiyorum:
-- Yeni sekme açıldığında ortada büyük, canlı bir saat ve yerel tarih görünsün.
-- Arka planda güzel bir manzara olsun; fotoğraf eklentinin içinde bulunsun.
-- Günün saatine göre karşılama gösterilsin ve kullanıcı ismini ekleyebilsin.
-- Kullanıcı bugün için tek bir odak yazabilsin; bunu tamamlayabilsin,
-  düzenleyebilsin veya silebilsin. Odak yerel gece yarısında yenilensin.
-- Kişiselleştirme bölümünde isim, 12/24 saat biçimi ve üç arka plan seçilsin.
-- Sayfanın altında her gün değişen kısa, sakin bir hatırlatma olsun.
-
-Hesap, sunucu, API anahtarı, reklam veya takip istemiyorum. İnternet olmadan
-çalışsın; fontlar, görseller ve kod dışarıdan yüklenmesin. İsim, tercihler ve
-günlük odak yalnızca kullanıcının tarayıcısında saklansın. Açık eklenti
-sekmeleri arasındaki değişiklikler eşitlensin. Gereksiz tarayıcı izni isteme.
-
-Manifest V3, HTML, CSS ve JavaScript kullan. Kurulum için derleme veya
-terminal komutu gerektirme; yüklenecek dosyaları extension klasörüne koy.
-Küçük ekranlarda da okunaklı olsun ve klavyeyle kullanılabilsin.
-
-Saatin ve günün değişmesini, kayıtların korunmasını, çevrimdışı çalışmayı
-ve bozuk ya da engellenmiş depolama durumlarını test et. Son olarak,
-eklentinin Brave’e nasıl ekleneceğini hiç bilmeyen birine anlatır gibi
-adım adım açıklayan bir README hazırla.
-```
 
 > Bu prompt bir başlangıç örneğidir; aynı sonucu birebir garanti etmez. Üretilen kodu ve eklentinin istediği izinleri yüklemeden önce kontrol et.
 
