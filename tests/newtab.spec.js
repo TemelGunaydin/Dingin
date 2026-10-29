@@ -22,14 +22,16 @@ const test = base.extend({
         "--disable-background-networking",
       ],
     });
+    // Pause ahead of installation so asynchronous setup cannot move time backward.
+    // A context-level clock also keeps every new tab on the same local day.
+    await context.clock.install({ time: new Date(fixedTime.getTime() - 60_000) });
+    await context.clock.pauseAt(fixedTime);
     await context.setOffline(true);
     await use(context);
     await context.close();
   },
   page: async ({ context }, use) => {
     const page = await context.newPage();
-    await page.clock.install({ time: fixedTime });
-    await page.clock.pauseAt(fixedTime);
     await page.goto("chrome://newtab/");
     await expect(page.locator("#clock")).toHaveText("10:00");
     await use(page);
@@ -65,10 +67,62 @@ test("Brave's actual new tab runs offline, with no external requests or errors",
     return image.naturalWidth > 0;
   });
   expect(imageLoaded).toBe(true);
+  expect(await page.locator(".brand img").evaluate((image) => image.complete && image.naturalWidth > 0)).toBe(true);
   expect(errors).toEqual([]);
   expect(external).toEqual([]);
   // Keep a local preview for visual inspection, outside the extension package.
   await page.screenshot({ path: "test-results/dingin-desktop.png" });
+});
+
+test("About explains the project offline, traps keyboard focus and restores it on dismissal", async ({ page }) => {
+  await addFocus(page);
+  const trigger = page.getByRole("button", { name: "Hakkında", exact: true });
+  const about = page.getByRole("dialog", { name: "Biraz yavaşla." });
+  const close = page.getByRole("button", { name: "Hakkında penceresini kapat" });
+  const source = about.getByRole("link", { name: /GitHub’da incele/ });
+
+  await trigger.click();
+  await expect(about).toBeVisible();
+  await expect(about).toContainText("çevrimdışı çalışır");
+  await expect(about).toContainText("yalnızca bu tarayıcıda saklanır");
+  await expect(source).toHaveAttribute("href", "https://github.com/TemelGunaydin/Dingin");
+  await expect(source).toHaveAttribute("rel", "noopener noreferrer");
+  await expect(close).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(source).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(close).toBeFocused();
+  await page.screenshot({ path: "test-results/dingin-about.png" });
+
+  await page.keyboard.press("Escape");
+  await expect(about).toBeHidden();
+  await expect(trigger).toBeFocused();
+  await trigger.click();
+  await close.click();
+  await expect(about).toBeHidden();
+  await expect(trigger).toBeFocused();
+  await trigger.click();
+  await page.mouse.click(8, 8);
+  await expect(about).toBeHidden();
+  await expect(trigger).toBeFocused();
+  await expect(page.locator("#focus-text")).toHaveText("Kitabımdan on sayfa okumak");
+});
+
+test("About and footer controls fit narrow and short viewports", async ({ page }) => {
+  for (const viewport of [{ width: 320, height: 568 }, { width: 375, height: 812 }, { width: 768, height: 600 }]) {
+    await page.setViewportSize(viewport);
+    const trigger = page.getByRole("button", { name: "Hakkında", exact: true });
+    await trigger.scrollIntoViewIfNeeded();
+    await expect(trigger).toBeInViewport();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await trigger.click();
+    const about = page.locator("#about-dialog");
+    await expect(about).toBeInViewport();
+    expect(await about.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
+    if (viewport.width === 375) await page.screenshot({ path: "test-results/dingin-mobile-about.png" });
+    await page.getByRole("button", { name: "Hakkında penceresini kapat" }).click();
+    await expect(trigger).toBeFocused();
+  }
 });
 
 test("focus can be saved, completed, edited, cancelled and removed", async ({ page }) => {
@@ -95,6 +149,12 @@ test("focus can be saved, completed, edited, cancelled and removed", async ({ pa
 
 test("personalization persists, and Escape cancels unsaved preferences", async ({ page }) => {
   await openSettings(page);
+  await page.keyboard.press("Shift+Tab");
+  await expect(page.locator("#settings-close")).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(page.getByRole("button", { name: "Kaydet", exact: true })).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(page.locator("#settings-close")).toBeFocused();
   await page.getByLabel("Sana nasıl seslenelim?").fill("Temel");
   await page.getByText("12 saat", { exact: true }).click();
   await page.getByText("Alacakaranlık", { exact: true }).click();

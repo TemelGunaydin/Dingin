@@ -16,9 +16,7 @@
     <div class="page">
       <header class="topbar">
         <div class="brand" aria-label="Dingin">
-          <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
-            <path d="M5 21h22M9 17a7 7 0 0 1 14 0M16 3v3M5 7l3 3M27 7l-3 3M9 26h14" />
-          </svg>
+          <img src="assets/icon-128.png" width="32" height="32" alt="">
           <span>dingin</span>
         </div>
         <p class="top-note">Yeni bir sekme. Küçük bir nefes.</p>
@@ -76,10 +74,16 @@
           <span class="scene-note" id="scene-note" hidden>Renklerle küçük bir kaçış</span>
         </div>
         <p class="daily-thought" id="daily-thought">Her şeyi değil, bugün önemli olanı yap.</p>
-        <button class="settings-trigger" id="settings-open" type="button" aria-haspopup="dialog">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 3-.5 2-2 1.2-2-.5-2 3.6L4 11v2l-1.5 1.7 2 3.6 2-.5 2 1.2.5 2h6l.5-2 2-1.2 2 .5 2-3.6L20 13v-2l1.5-1.7-2-3.6-2 .5-2-1.2L15 3Z" /><circle cx="12" cy="12" r="3" /></svg>
-          <span>Kişiselleştir</span>
-        </button>
+        <div class="footer-actions">
+          <button class="settings-trigger" id="about-open" type="button" aria-haspopup="dialog" aria-controls="about-dialog">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v6m0-10v.01" /></svg>
+            <span>Hakkında</span>
+          </button>
+          <button class="settings-trigger" id="settings-open" type="button" aria-haspopup="dialog" aria-controls="settings-dialog">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 3-.5 2-2 1.2-2-.5-2 3.6L4 11v2l-1.5 1.7 2 3.6 2-.5 2 1.2.5 2h6l.5-2 2-1.2 2 .5 2-3.6L20 13v-2l1.5-1.7-2-3.6-2 .5-2-1.2L15 3Z" /><circle cx="12" cy="12" r="3" /></svg>
+            <span>Kişiselleştir</span>
+          </button>
+        </div>
       </footer>
     </div>
 
@@ -129,6 +133,32 @@
         </p>
         <button class="save-button" type="submit">Kaydet</button>
       </form>
+    </dialog>
+
+    <dialog class="settings about" id="about-dialog" aria-labelledby="about-title" aria-describedby="about-description">
+      <div class="settings-heading">
+        <div class="about-brand">
+          <img src="assets/icon-128.png" width="56" height="56" alt="">
+          <div>
+            <p class="eyebrow">DİNGİN HAKKINDA</p>
+            <h2 id="about-title">Biraz yavaşla.</h2>
+          </div>
+        </div>
+        <button class="icon-button" id="about-close" type="button" aria-label="Hakkında penceresini kapat" autofocus>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+        </button>
+      </div>
+      <p class="about-description" id="about-description">Dingin, her yeni sekmeyi küçük bir molaya dönüştüren bağımsız bir Brave eklentisi. Sakin bir manzara, içinde bulunduğun an ve bugün senin için önemli olan tek bir şey.</p>
+      <ul class="about-details">
+        <li><h3>Gününe küçük bir niyet.</h3><p>Bir odak seç, tamamla ve kendine bir nefes ver. Yeni gün, yerel gece yarısında temiz bir başlangıç getirir.</p></li>
+        <li><h3>İnternet olmasa da burada.</h3><p>Manzara, saat ve tüm özellikler çevrimdışı çalışır. Hesap, reklam veya takip yok.</p></li>
+        <li><h3>Verilerin sende kalır.</h3><p>İsmin, tercihlerin ve odağın yalnızca bu tarayıcıda saklanır. Sunucuya gönderilmez, cihazlar arasında eşitlenmez. Ek tarayıcı izni istenmez.</p></li>
+      </ul>
+      <div class="about-footer">
+        <span class="about-version">Dingin · 1.0.0</span>
+        <a href="https://github.com/TemelGunaydin/Dingin" target="_blank" rel="noopener noreferrer">GitHub’da incele <span class="sr-only">(yeni sekmede açılır)</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" /></svg></a>
+      </div>
+      <p class="about-disclaimer">Momentum’dan ilham alır; Momentum veya Brave’in resmî ürünü değildir.</p>
     </dialog>
 
     <p class="storage-notice" id="storage-notice" role="alert" hidden>Tarayıcı kayıt izni vermedi. Değişiklikler yalnızca bu sekmede kalacak.</p>

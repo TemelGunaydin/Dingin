@@ -165,12 +165,29 @@ $("settings-open").addEventListener("click", () => {
   dialog.showModal();
 });
 
-$("settings-close").addEventListener("click", () => dialog.close());
-dialog.addEventListener("click", (event) => {
-  if (event.target !== dialog) return;
-  const bounds = dialog.getBoundingClientRect();
-  if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
-});
+$("about-open").addEventListener("click", () => $("about-dialog").showModal());
+
+for (const id of ["settings", "about"]) {
+  const modal = $(`${id}-dialog`);
+  const controls = modal.querySelectorAll("button, input, a[href]");
+  const first = controls[0];
+  const last = controls[controls.length - 1];
+  $(`${id}-close`).addEventListener("click", () => modal.close());
+  modal.addEventListener("keydown", (event) => {
+    if (event.key !== "Tab") return;
+    const leavingStart = event.shiftKey && document.activeElement === first;
+    const leavingEnd = !event.shiftKey && document.activeElement === last;
+    if (leavingStart || leavingEnd) {
+      event.preventDefault();
+      (leavingStart ? last : first).focus();
+    }
+  });
+  modal.addEventListener("click", (event) => {
+    if (event.target !== modal) return;
+    const bounds = modal.getBoundingClientRect();
+    if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) modal.close();
+  });
+}
 
 settingsForm.addEventListener("submit", (event) => {
   event.preventDefault();

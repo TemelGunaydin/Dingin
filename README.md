@@ -1,224 +1,101 @@
-# Dingin · Brave için yeni sekme
+<p align="center">
+  <img src="extension/assets/logo.png" width="96" height="96" alt="Dingin sunrise and water reflection logo">
+</p>
 
-Dingin, Brave’de yeni bir sekme açtığında ortada saat ve arka planda sakin bir manzara gösterir. İstersen ismini ve o gün yapmak istediğin tek bir şeyi de ekleyebilirsin. Momentum’dan ilham alan, Türkçe ve bilgisayarında çalışan bağımsız bir eklentidir.
+<h1 align="center">Dingin</h1>
 
-## Bu projeyi oluşturmak için örnek prompt
+<p align="center">A new tab. A small breath.</p>
 
-Aşağıdaki metin, projenin başlangıç fikrini ve ortaya çıkan özelliklerini bir araya getiren **yeniden yazılmış bir prompttur**; ilk konuşmanın birebir kopyası değildir. Benzer bir eklenti oluşturmak için bir yapay zekâ kodlama asistanına verebilirsin.
+<p align="center">A calm, offline new tab for Brave, with a scenic background, a live clock, and one daily focus.<br>No accounts, tracking, or extra browser permissions.</p>
 
-```text
-Brave tarayıcısında bilgisayarımdan yükleyip kullanabileceğim, Momentum’dan
-(https://momentumdash.com/) ilham alan bir yeni sekme eklentisi yap.
-Momentum’un marka ve tasarımını birebir kopyalama; adı Dingin olsun.
+![Dingin new tab with an alpine lake, a live clock, and a daily focus field](docs/preview.png)
 
-Sade, sakin ve Türkçe bir arayüz istiyorum:
-- Yeni sekme açıldığında ortada büyük, canlı bir saat ve yerel tarih görünsün.
-- Arka planda güzel bir manzara olsun; fotoğraf eklentinin içinde bulunsun.
-- Günün saatine göre karşılama gösterilsin ve kullanıcı ismini ekleyebilsin.
-- Kullanıcı bugün için tek bir odak yazabilsin; bunu tamamlayabilsin,
-  düzenleyebilsin veya silebilsin. Odak yerel gece yarısında yenilensin.
-- Kişiselleştirme bölümünde isim, 12/24 saat biçimi ve üç arka plan seçilsin.
-- Sayfanın altında her gün değişen kısa, sakin bir hatırlatma olsun.
+**Dingin** means calm in Turkish. It turns each new tab into a quiet moment to check the time, take a breath, and choose what matters today. The interface is in Turkish; this guide is in English.
 
-Hesap, sunucu, API anahtarı, reklam veya takip istemiyorum. İnternet olmadan
-çalışsın; fontlar, görseller ve kod dışarıdan yüklenmesin. İsim, tercihler ve
-günlük odak yalnızca kullanıcının tarayıcısında saklansın. Açık eklenti
-sekmeleri arasındaki değişiklikler eşitlensin. Gereksiz tarayıcı izni isteme.
+Built with plain HTML, CSS, and JavaScript using Manifest V3. Everything needed to run the extension is inside [`extension/`](extension/). No build step, server, or API key is required.
 
-Manifest V3, HTML, CSS ve JavaScript kullan. Kurulum için derleme veya
-terminal komutu gerektirme; yüklenecek dosyaları extension klasörüne koy.
-Küçük ekranlarda da okunaklı olsun ve klavyeyle kullanılabilsin.
+## Features
 
-Saatin ve günün değişmesini, kayıtların korunmasını, çevrimdışı çalışmayı
-ve bozuk ya da engellenmiş depolama durumlarını test et. Son olarak,
-eklentinin Brave’e nasıl ekleneceğini hiç bilmeyen birine anlatır gibi
-adım adım açıklayan bir README hazırla.
-```
+- **A local clock and date.** Choose 12-hour or 24-hour time, with greetings that follow the time of day and optionally include your name.
+- **One daily intention.** Save, complete, edit, or remove a single focus. It resets at local midnight, including when a suspended tab wakes up.
+- **Three quiet backgrounds.** A bundled photograph of Lake Braies, a dusk gradient, and a night gradient.
+- **A daily reminder.** A short, gentle thought that changes with the local calendar day.
+- **Preferences that stay with you.** Your name, clock format, and background persist in the browser. Open Dingin tabs in the same profile stay in sync.
+- **An About panel.** Learn what Dingin does, how it stores your information, and where to find the source code.
+- **Keyboard access and responsive layouts.** Labeled controls, visible focus indicators, accessible dialogs, and layouts that adapt to narrow windows.
+- **Offline by design.** All images, icons, styles, and scripts are bundled. No remote fonts, analytics, ads, or background services.
 
+## Install in Brave
 
-**Daha önce hiç eklenti kurmadıysan da aşağıdaki adımları izleyebilirsin. Kod yazmana veya terminal açmana gerek yok.**
+Use Brave on a **Windows, macOS, or Linux desktop**. Installation does not require Node.js or a terminal.
 
-## Başlamadan önce
+1. [Download the project ZIP](https://github.com/TemelGunaydin/Dingin/archive/refs/heads/main.zip) and extract it. You can also clone the repository:
 
-İhtiyacın olan iki şey var:
-
-- Bilgisayarında kurulu **Brave tarayıcısı**. Kurulu değilse [brave.com/download](https://brave.com/download/) adresinden indirip kurabilirsin.
-- Bu projenin dosyaları; özellikle içindeki **`extension`** klasörü.
-
-Kurulum ücretsizdir; hesap açman veya başka bir program yüklemen gerekmez. Bu yöntem **Windows, macOS ve Linux bilgisayarlar** içindir; telefondaki Brave için değildir.
-
-> Eklenti şu an mağazadan değil, bilgisayarındaki dosyalardan yüklenir. Mağazaya yayınlama adımları bu rehberin konusu değildir.
-
-## Brave’e adım adım ekleme
-
-### 1. Eklenti klasörünü hazırla
-
-Dosyalar sana ZIP dosyası olarak geldiyse önce ZIP’i aç:
-
-- **Windows:** ZIP dosyasına sağ tıkla, **Tümünü ayıkla / Extract All** seçeneğine tıkla ve çıkarılan klasörü aç.
-- **Mac:** ZIP dosyasına çift tıkla; yanında oluşan klasörü aç.
-- **Linux:** ZIP dosyasına sağ tıklayıp dosya yöneticindeki **Buraya çıkar / Extract Here** seçeneğini kullan.
-
-Dosyalar zaten normal bir klasördeyse ZIP açma adımını atlayabilirsin.
-
-Proje klasörünün içinde **`extension`** adlı klasörü bul. İçini açınca şu dosyaları görmelisin:
-
-```text
-extension/
-  manifest.json
-  newtab.html
-  newtab.css
-  newtab.js
-  model.js
-  assets/
-```
-
-Dosyaları tek tek açmana gerek yok. Birazdan Brave’e **bu klasörün tamamını** seçeceksin.
-
-**Bu bilgisayardaki mevcut klasör:**
-
-```text
-/Users/temelgunaydin/Projects/RelaxingBrave/extension
-```
-
-Bu adres yalnızca mevcut Mac için geçerlidir. Başka bir bilgisayardaysan kendi indirdiğin proje klasörünün içindeki `extension` klasörünü kullan.
-
-> **Önemli:** Kurduktan sonra Brave dosyaları bu klasörden okumaya devam eder. Klasörü silme veya taşıma. İndirilenler klasörünü sık temizliyorsan kurulumdan **önce** projeyi Belgeler gibi kalıcı bir yere taşı.
-
-### 2. Brave’i aç
-
-Bilgisayarındaki Brave simgesine tıkla. Kurulumu normal bir Brave penceresinde yap; gizli pencere açmana gerek yok.
-
-### 3. Eklentiler sayfasına git
-
-1. Brave penceresinin **en üstündeki adres çubuğuna** tıkla. Burası web sitesi adreslerini yazdığın uzun kutudur; sayfa içindeki arama kutusu değildir.
-2. İçindeki yazıyı silip aşağıdaki adresi yaz:
-   ```text
-   brave://extensions
+   ```bash
+   git clone https://github.com/TemelGunaydin/Dingin.git
    ```
-3. Klavyeden **Enter** tuşuna bas.
 
-Eklentilerini gösteren bir sayfa açılacak. Henüz eklentin yoksa sayfanın boş görünmesi normaldir.
+2. Move the extracted project to a permanent location. Brave will continue reading the extension from this folder.
+3. Open `brave://extensions` in Brave's address bar.
+4. Enable **Developer mode** in the top-right corner.
+5. Click **Load unpacked** and select the **`extension` folder**, which directly contains `manifest.json`. Select the folder, not the ZIP, the repository root, or an individual file.
+6. Open a new tab with **Cmd+T** on macOS or **Ctrl+T** on Windows and Linux. If Brave asks you to confirm the new tab change, choose **Keep it**.
 
-### 4. Geliştirici modunu aç
+You should now see the lake background and a large clock. If another extension controls your new tab page, disable that extension first.
 
-Sayfanın sağ üstündeki **Geliştirici modu / Developer mode** anahtarına tıkla ve açık konuma getir.
+> Keep the installed `extension` folder in place. Moving or deleting it will stop the unpacked extension from working.
 
-Bu seçenek bilgisayarındaki eklenti dosyalarını yükleyebilmeni sağlar. Yazılım geliştiricisi olman gerekmez. Yalnızca kaynağına güvendiğin eklentileri yükle.
+## Make it yours
 
-### 5. `extension` klasörünü seç
+### Personalize your space
 
-1. Sayfada beliren **Paketlenmemiş öğe yükle / Load unpacked** düğmesine tıkla.
-2. Açılan klasör seçme penceresinde, 1. adımda bulduğun proje klasörüne git.
-3. İçindeki **`extension`** klasörünü seç.
-4. Penceredeki **Klasör seç / Select Folder** veya **Aç / Open** düğmesine tıkla. Düğmenin adı işletim sistemine göre değişebilir.
+Click the **gear icon** in the footer. Add an optional name, choose your clock format, and select a background. Save to apply your preferences, or press **Escape** to leave them unchanged.
 
-**Doğru seçim:** İçinde doğrudan `manifest.json` dosyası bulunan `extension` klasörü.
+The 12-hour clock uses Turkish period markers for morning and afternoon. The time, date, greetings, and daily reset all use your computer's local time zone.
 
-**Yanlış seçim:** ZIP dosyası, projenin tamamını içeren `RelaxingBrave` klasörü, `assets` klasörü veya tek bir `newtab.html` dosyası.
+### Choose today's focus
 
-Yükleme başarılıysa eklentiler sayfasında **Dingin — Yeni Sekme** adlı bir kart göreceksin. Kartın açma/kapatma anahtarı açık olmalı.
+Enter one intention beneath the clock, then press **Enter** or click the save icon. Click the circle next to it to mark it complete; click again to reopen it.
 
-### 6. Yeni bir sekme aç
+Use the **pencil icon** to edit. While editing, press **Enter** to save, use **Escape** or Cancel to discard your edit, or choose Remove to clear today's focus. The focus field supports up to 160 characters.
 
-Brave’in üstündeki sekmelerin yanındaki **+** düğmesine tıkla. İstersen şu kısayolu kullan:
+At local midnight, the focus resets for a fresh day. Your name and preferences remain. Dingin keeps one daily intention, rather than a history of completed tasks.
 
-- **Mac:** `⌘ + T`
-- **Windows / Linux:** `Ctrl + T`
+### Learn about Dingin
 
-Brave yeni sekme sayfasının değiştiğini belirten bir uyarı gösterirse **Bu değişikliği koru / Keep it** seçeneğini kullan.
+Click the **information icon** in the footer to open About. It explains the project's purpose, offline behavior, and local storage, and links to this repository. Close it with the close button, **Escape**, or a click outside the panel. Keyboard focus returns to the control that opened it.
 
-**Ortada büyük bir saat ve arkada göl manzarası görüyorsan kurulum tamamdır.** Bundan sonra yeni sekmelerde Dingin açılır; normal web sitelerini kullanmaya devam edebilirsin.
+## Privacy and offline behavior
 
-## İlk kullanım
+- The extension requests **no browser permissions or host access**.
+- Names, preferences, and the daily focus are stored in the extension's `localStorage`. They stay in the current browser profile and are not uploaded or synced between devices.
+- Tabs in the same browser profile synchronize saved changes through the browser's storage events. Unsaved edits are kept while preferences change in another tab.
+- The content security policy blocks outgoing connections with `connect-src 'none'`. Scripts, styles, and images are restricted to bundled assets.
+- The photo credit and repository links open external pages only when you click them.
+- If browser storage is unavailable, Dingin remains usable with temporary, in-memory state and displays a notice. Those changes last only in the current tab.
 
-### İsmini ve arka planını değiştirme
+## Update or uninstall
 
-1. Dingin açıkken sağ alttaki **Kişiselleştir** düğmesine tıkla.
-2. **Sana nasıl seslenelim?** alanına ismini yaz. Boş bırakman da mümkün.
-3. **24 saat** (`14:00`) veya **12 saat** (`02:00 ÖS`) biçimini seç. ÖÖ öğleden önce, ÖS öğleden sonra anlamına gelir.
-4. **Göl kenarı**, **Alacakaranlık** veya **Gece** arka planlarından birini seç.
-5. **Kaydet** düğmesine tıkla.
+To update, replace the files in the **same installed folder**, open `brave://extensions`, and click **Reload** on Dingin's card. Open a fresh new tab to see the changes. Reloading keeps your saved preferences and current daily focus.
 
-Kaydetmeden çıkmak istersen sağ üstteki **×** düğmesine veya klavyedeki **Esc** tuşuna bas.
+To temporarily return to Brave's default new tab, switch Dingin off on the extensions page. Turn it back on to use it again. Use **Remove** to uninstall; uninstalling may delete the extension's saved data.
 
-### Bugünün odağını ekleme
+## Troubleshooting
 
-1. Saatin altında, **Bugün senin için önemli olan ne?** sorusunun altındaki yazı alanına tıkla.
-2. Örneğin `Kitabımdan on sayfa okumak` yaz.
-3. **Enter** tuşuna veya alanın sağındaki kaydet simgesine tıkla.
-4. Bitirdiğinde yazının yanındaki **daireye** tıkla. Yazının üzeri çizilir; tekrar tıklarsan tamamlandı işareti kalkar.
-
-Değiştirmek için yazının yanındaki **kalem simgesine** tıkla, metni değiştir ve Enter’a bas. Düzenlerken **Vazgeç / Esc** değişikliği iptal eder; **Kaldır** o günün odağını siler.
-
-**Günlük odak, bilgisayarının yerel saatine göre gece yarısında yenilenir.** Ertesi gün yeni bir odak yazabilirsin. Bu alan geçmiş günlerin görevlerini saklayan bir yapılacaklar listesi değildir.
-
-### Neler otomatik çalışır?
-
-- Saat ve tarih bilgisayarındaki yerel saati kullanır; elle ayarlaman gerekmez.
-- Karşılama sabah, gündüz, akşam ve geceye göre değişir.
-- Sayfanın altındaki kısa hatırlatma her gün değişir.
-- İsmin, görünüm tercihlerin ve o günün odağı sekmeyi kapatıp yeniden açınca korunur. Açık Dingin sekmeleri arasında da güncellenir.
-
-Veriler kullandığın Brave profilinde saklanır; farklı bilgisayarlara veya tarayıcı profillerine aktarılmaz. Eklentiyi kaldırmak veya verilerini temizlemek kayıtlarını silebilir.
-
-## Dosyalar güncellenirse ne yapmalıyım?
-
-Bu yerel kurulum kendiliğinden yeni sürüm indirmez. Sana güncellenmiş dosyalar verildiyse:
-
-1. Eklenti dosyalarını aynı `extension` klasöründe güncelle.
-2. Brave’de `brave://extensions` adresini aç.
-3. Dingin kartındaki **Yeniden yükle / Reload** düğmesine tıkla. Bu düğme daire şeklindeki ok simgesiyle görünebilir.
-4. Yeni bir sekme aç.
-
-## Eski Brave yeni sekmesine nasıl dönerim?
-
-1. Brave’de `brave://extensions` adresini aç.
-2. **Dingin — Yeni Sekme** kartını bul.
-3. Karttaki açma/kapatma anahtarını **kapalı** konuma getir.
-4. Yeni bir sekme aç. Dingin artık gösterilmez.
-
-Tekrar kullanmak istersen aynı anahtarı aç. Tamamen kaldırmak için karttaki **Kaldır / Remove** düğmesine tıkla ve onayla. Kaldırmak kayıtlı tercihlerinin kaybolmasına neden olabilir.
-
-## Sorun yaşarsan
-
-| Sorun | Ne yapmalısın? |
+| Problem | What to check |
 | --- | --- |
-| “Paketlenmemiş öğe yükle” düğmesini göremiyorum. | `brave://extensions` sayfasındaki **Geliştirici modu**nu aç. |
-| “Manifest bulunamadı / okunamadı” hatası var. | ZIP’i çıkardığından ve doğrudan `manifest.json` içeren **`extension`** klasörünü seçtiğinden emin ol. |
-| Dingin kartı var ama yeni sekmede açılmıyor. | Kartın anahtarını aç. Momentum gibi başka bir yeni sekme eklentisi varsa onu kapat. Brave değişikliği onaylamanı istediyse **Bu değişikliği koru** seçeneğini kullanıp yeni sekme aç. |
-| Klasörü taşıdım veya sildim, eklenti çalışmıyor. | Dosyaları eski konumuna geri koyup Dingin kartından **Yeniden yükle**ye tıkla. Eski konumu kullanamıyorsan eklentiyi kaldırıp yeni konumdaki `extension` klasörünü yükle; kaldırmak kayıtlarını silebilir. |
-| Saat veya tarih yanlış. | Bilgisayarının sistem ayarlarında saat, tarih ve saat dilimini kontrol et. Dingin bunları bilgisayardan alır. |
-| Günlük odağım ertesi gün kayboldu. | Bu normaldir; günlük odak gece yarısında yenilenir. İsmin ve arka plan tercihin değişmez. |
-| “Tarayıcı kayıt izni vermedi” uyarısı görüyorum. | Değişiklikler yalnızca açık sekmede kalır. Brave profilinin veya kullandığın gizlilik araçlarının yerel depolamayı engelleyip engellemediğini kontrol et; güvenlik ayarlarını tamamen kapatman gerekmez. |
-| İş / okul bilgisayarında yüklemeye izin verilmiyor. | Kurumun eklenti kurulmasını kısıtlamış olabilir. Bilgi işlem sorumlusuna danış; bu rehber kurum kısıtlamalarını kaldırmaz. |
+| **Load unpacked** is missing. | Enable **Developer mode** at `brave://extensions`. |
+| Brave cannot find or read the manifest. | Extract the ZIP and select the `extension` folder that directly contains `manifest.json`. |
+| Dingin is installed, but a new tab looks unchanged. | Enable Dingin, disable competing new tab extensions, confirm Brave's new tab prompt if shown, and open a fresh tab. |
+| The extension stopped working after moving its folder. | Restore the original folder location and reload. Loading it from a new location may require reinstalling and can reset saved data. |
+| The clock or date is incorrect. | Check the computer's clock, date, and time zone. |
+| Yesterday's focus disappeared. | The daily focus intentionally resets at local midnight. |
+| A storage notice appears. | The browser profile or a privacy tool may be blocking local storage. Changes will remain temporary in the current tab. |
+| Installation is blocked on a work or school computer. | Ask your administrator whether unpacked extensions are permitted. |
 
-## Yerel ve özel
+## Development
 
-- Fotoğraf, simgeler, CSS ve JavaScript eklentinin içinde paketlidir. İnternet olmadan çalışır.
-- Hesap, analiz, reklam, hava durumu servisi, uzaktan font veya CDN yoktur.
-- Tarayıcı izni, site erişimi veya arka plan servisi istemez.
-- Veriler yalnızca eklentinin `localStorage` alanına yazılır; sunucuya gönderilmez ve cihazlar arasında senkronize edilmez.
-- İçerik güvenlik politikası ağ bağlantılarını kapatır (`connect-src 'none'`). Yalnızca fotoğrafın kaynak bağlantısına kendin tıklarsan Unsplash yeni sekmede açılır.
-- Tarayıcı depolamayı engellerse saat çalışmaya devam eder; değişikliklerin yalnızca o sekmede kalacağını belirten bir uyarı gösterilir.
-
-> Bu prompt bir başlangıç örneğidir; aynı sonucu birebir garanti etmez. Üretilen kodu ve eklentinin istediği izinleri yüklemeden önce kontrol et.
-
-## Dosyalar
-
-```text
-extension/
-  manifest.json       # Manifest V3, yeni sekme tanımı
-  newtab.html         # Arayüz
-  newtab.css          # Görünüm ve küçük ekran düzeni
-  newtab.js           # Saat, tercihler, odak ve sekme eşitleme
-  model.js            # Tarih, biçimlendirme ve veri doğrulama
-  assets/             # Paketlenmiş fotoğraf ve simgeler
-```
-
-## Geliştirici testleri (kurulum için gerekmez)
-
-Node.js 20+ ile:
+Use **Node.js 20 or later**. The extension itself has no runtime dependencies; Playwright is a development dependency for browser tests.
 
 ```bash
 npm ci
@@ -226,23 +103,45 @@ npm test
 npm run test:browser
 ```
 
-Tarayıcı testleri macOS’te kurulu Brave’i **ayrı, geçici bir profille** açar; kişisel tarayıcı verilerine dokunmaz. Başka bir sistemde Brave çalıştırılabilir dosyasını belirt:
+The browser suite uses Brave automatically when installed at its standard macOS location. It launches a separate temporary profile, loads the actual extension as the new tab page, and runs offline. It does not use your personal Brave profile.
+
+On another system, point the suite to your Brave executable:
 
 ```bash
 BROWSER_PATH="/path/to/brave" npm run test:browser
 ```
 
-Brave yoksa Playwright Chromium ile de çalıştırabilirsin:
+If Brave is unavailable, install Playwright's Chromium:
 
 ```bash
 npx playwright install chromium
 npm run test:browser
 ```
 
-Testler gerçek yeni sekme değişimini, çevrimdışı fotoğrafı, saat/gün değişimini, odak işlemlerini, tercihlerin kalıcılığını, sekmeler arası eşitlemeyi, bozuk/engellenmiş depolamayı ve dar ekran düzenini kontrol eder. Görsel önizlemeler `test-results/` klasörüne kaydedilir.
+Model tests cover date boundaries, formatting, input normalization, malformed data, and bundled assets. Browser tests cover the actual new tab override, offline loading, focus actions, persistence, midnight rollover, synchronization, blocked storage, About interactions, keyboard focus, and narrow layouts. Preview screenshots are written to `test-results/`.
 
-## Fotoğraf
+### Project structure
 
-**Braies Gölü, İtalya** — [Pietro De Grandi / Unsplash](https://unsplash.com/photos/T7K4aEPoGGk), [Unsplash lisansı](https://unsplash.com/license). [Kaynak dosya](https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=2560&q=88) indirilip eklentiye dahil edilmiştir; kullanım sırasında tekrar indirilmez.
+```text
+extension/
+  manifest.json       # Manifest V3, new tab override, and security policy
+  newtab.html         # New tab, personalization, and About dialogs
+  newtab.css          # Layout, backgrounds, and responsive styles
+  newtab.js           # Clock, storage, dialogs, and tab synchronization
+  model.js            # Date formatting and data validation
+  assets/             # Bundled photograph, generated logo, and icons
+tests/
+  model.test.js       # Node.js model and packaging tests
+  newtab.spec.js      # Playwright tests in the actual extension
+docs/
+  preview.png         # New tab screenshot
+  branding.md         # Logo generation prompts and asset details
+```
 
-Dingin bağımsız bir projedir; Momentum veya Brave’in resmî ürünü değildir.
+## Credits
+
+**Photography:** Lake Braies, Italy, by [Pietro De Grandi on Unsplash](https://unsplash.com/photos/T7K4aEPoGGk), used under the [Unsplash License](https://unsplash.com/license). The [source photograph](https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=2560&q=88) is bundled locally and is not fetched during use.
+
+**Logo:** A sunrise reflected in still water, created with OpenAI's built-in image generation tool. The logo and matching extension icons are bundled locally. See [branding notes and prompts](docs/branding.md).
+
+Dingin is an independent project inspired by Momentum. It is not affiliated with or endorsed by Momentum or Brave.

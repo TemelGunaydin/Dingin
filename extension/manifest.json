@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Dingin — Yeni Sekme",
+  "name": "Dingin - Yeni Sekme",
   "version": "1.0.0",
   "description": "Biraz yavaşla. Manzara, saat ve günlük odağınla sana ait, çevrimdışı bir yeni sekme.",
   "chrome_url_overrides": {
